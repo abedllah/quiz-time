@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationBar from './NavigationBar';
 
-export default function Cart() {
+export default function SignUp() {
  
   return (
     <div style={{ marginTop: '100px' }}>
