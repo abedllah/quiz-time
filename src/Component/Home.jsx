@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div style={{ marginTop: '150px' }}>
       <NavigationBar />
-      <div className="container-fluid mt-5">
+      <div className="container-fluid mt-5 text-white">
         <div className="row justify-content-center align-items-center">
           <div className="col-md-6 text-center">
             <h1 className="display-3">Welcome to QuizTime!</h1>

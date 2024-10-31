@@ -4,8 +4,9 @@ import Products from './Component/Products';
 import AddProduct from './Component/AddProduct';
 import Details from './Component/Details';
 import SignUp from './Component/SignUp';
-import Footer from './Component/Footer';
 import './style.css';
+import './css/App.css';
+import MainPage from './Component/MainPage';
 
 
 export default function App(){
@@ -14,13 +15,13 @@ export default function App(){
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/MainPage" element={<MainPage />} />
           <Route path="/products" element={<Products />} />
           <Route path="/add" element={<AddProduct />} />
           <Route path="/detaile/:id" element={<Details />} />
           <Route path="/SignUp" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
-        <Footer />
     </div>
   );
 }
