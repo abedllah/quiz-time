@@ -1,0 +1,63 @@
+.sideNave {
+    background-color: #262626;
+    color: white;
+}
+
+.sideNave a {
+    text-decoration: none;
+}
+
+.sideNave a:hover {
+    color: white;
+}
+.sideNave li:hover {
+    color: white;
+    border: 1px solid rgb(81, 81, 81);
+    border-radius: 30px;
+}
+
+.sideSection  {
+    background-color: #0D0D0D;
+    color: white;
+    border-left: 1px solid rgb(110, 110, 110);
+}
+
+.joinSec{
+    background-color: #262626;
+    padding: 15px 20px;
+    border-radius: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(110, 110, 110) ;
+}
+
+.leaderbord li {
+    background-color:#262626 ;
+    margin: 0px;
+    padding: 10px;
+    border-radius: 25px;
+
+}
+
+.joinSec button {
+    border-radius: 25px;
+}
+
+.mainSection {
+    background-color: #0D0D0D;
+    color: white;
+}
+
+.mainT {
+    background-color: #262626;
+    color: white;
+    border-radius: 20px;
+
+}
+
+.mainT button {
+    width: 25%;
+    border-radius: 25px;
+}
+
+
+/* #078C10 #0D0D0D #262626 #F2F2F2 #0D4010 */
