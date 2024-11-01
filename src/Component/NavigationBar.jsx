@@ -15,8 +15,8 @@ export default function NavigationBar() {
           </div>
           <div className="hidden md:flex items-center space-x-1">
             <Link to="/" className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">HOME</Link>
-            <Link to="/products" className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Create Quiz</Link>
-            <Link to="/add" className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Join Quiz</Link>
+            <Link to="/CreatQuiz" className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Create Quiz</Link>
+            <Link to="/JoinQuiz" className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Join Quiz</Link>
             <Link to="/SignUp" className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Sign Up</Link>
           </div>
           <div className="md:hidden flex items-center">
@@ -40,7 +40,7 @@ export default function NavigationBar() {
         <ul className="">
           <li><Link to="/" className="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">HOME</Link></li>
           <li><Link to="/MainPage" className="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">MainPage</Link></li>
-          <li><Link to="/products" className="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Create Quiz</Link></li>
+          <li><Link to="/CreatQuiz" className="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Create Quiz</Link></li>
           <li><Link to="/add" className="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Join Quiz</Link></li>
           <li><Link to="/SignUp" className="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Sign Up</Link></li>
         </ul>

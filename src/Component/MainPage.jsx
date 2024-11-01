@@ -1,7 +1,9 @@
 import React from 'react'
 import './../css/MainPage.css'
 
+
 export default function MainPage() {
+
     return (
         <div className="flex h-screen w-full">
             <aside className="sideNave w-1/4  p-4 flex flex-col justify-between">
@@ -15,7 +17,7 @@ export default function MainPage() {
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="flex items-center p-2 rounded">
+                                <a href="/CreatQuiz" className="flex items-center p-2 rounded">
                                     <i className="fas fa-file-alt mr-2"></i> Create Quiz
                                 </a>
                             </li>
@@ -108,7 +110,7 @@ export default function MainPage() {
                 <div className="joinSec mb-8">
                     <h3 className="text-xl font-bold mb-4">Join a Quiz</h3>
                     <p className=" mb-4">Test your knowledge with challenging questions!</p>
-                    <button className="bg-white text-black px-4 py-2 w-100">Join</button>
+                    <button className="bg-white text-black px-4 py-2 w-100"><a href="/JoinQuiz">Join</a></button>
                 </div>
                 <div>
                     <h3 className="text-xl font-bold mb-4">Quiz Leaderboard</h3>

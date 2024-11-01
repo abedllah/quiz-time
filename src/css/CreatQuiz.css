@@ -1,0 +1,13 @@
+.mainS {
+    width: 100%;
+    height: auto !important;
+    margin: 7% auto;
+}
+.mainS > div {
+    background-color: #262626;
+    width: 80%;
+    border-radius: 30px;
+}
+.mainS > div button {
+    background-color: #078C10;
+}
