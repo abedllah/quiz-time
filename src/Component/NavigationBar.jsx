@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import './../css/Nav.css'
 export default function NavigationBar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-lg fixed top-0 left-0 right-0">
+    <nav className="NavBar text-white shadow-lg fixed top-0 left-0 right-0">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between">
           <div className="flex space-x-7">
-            <Link to="/" className="flex items-center py-4 px-2">
-              <span className="font-semibold text-gray-500 text-lg">QuizTime</span>
-            </Link>
+            <a to="/" className="flex items-center py-4 px-2">
+              <span className="font-semibold  text-lg">QuizTime</span>
+            </a>
           </div>
           <div className="hidden md:flex items-center space-x-1">
-            <Link to="/" className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">HOME</Link>
-            <Link to="/CreatQuiz" className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Create Quiz</Link>
-            <Link to="/JoinQuiz" className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Join Quiz</Link>
-            <Link to="/SignUp" className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Sign Up</Link>
+            <Link to="/MainPage" className="py-4 px-2  font-semibold hover:text-green-500 transition duration-300">HOME</Link>
+            <Link to="/CreatQuiz" className="py-4 px-2  font-semibold hover:text-green-500 transition duration-300">Create Quiz</Link>
+            <Link to="/JoinQuiz" className="py-4 px-2  font-semibold hover:text-green-500 transition duration-300">Join Quiz</Link>
+            <Link to="/SignUp" className="py-4 px-2  font-semibold hover:text-green-500 transition duration-300">Sign Up</Link>
           </div>
           <div className="md:hidden flex items-center">
             <button className="outline-none mobile-menu-button" onClick={() => setIsOpen(!isOpen)}>
-              <svg className="w-6 h-6 text-gray-500 hover:text-green-500"
+              <svg className="w-6 h-6  hover:text-green-500"
                 x-show="!showMenu"
                 fill="none"
                 strokeLinecap="round"

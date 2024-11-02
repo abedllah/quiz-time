@@ -13,7 +13,7 @@ export default function Home() {
               Challenge Your Knowledge Anytime, Anywhere!
             </p>
             <p className="lead">
-              <button>Take a Quiz</button>
+              <button className='rounded-full mt-4 pl-4 pt-1 pb-1 pr-4 bg-green-700 font-bold'>Take a Quiz</button>
             </p>
           </div>
           <div className="col-md-6 mt-4">

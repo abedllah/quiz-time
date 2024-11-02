@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import NavigationBar from "./NavigationBar";
+import { useNavigate } from 'react-router-dom';
 
 const QuizPage = () => {
     // Placeholder questions and answers with correct answers
+    const navigate =useNavigate()
     const questions = [
         {
             id: 1,
@@ -35,6 +37,10 @@ const QuizPage = () => {
             ],
         },
     ];
+
+    function goHome(){
+        navigate('/MainPage');
+    }
 
     // State to keep track of the current question index, score, and selected answers
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -106,7 +112,7 @@ const QuizPage = () => {
                         <div className="text-center">
                             <h1 className="text-4xl font-bold mb-4">Your Score: {score} out of {questions.length}</h1>
                             <button
-                                onClick={() => window.location.reload()}
+                                onClick={() => goHome()}
                                 className="bg-blue-500 px-4 py-2 rounded-full text-white mr-4"
                             >
                                 Return

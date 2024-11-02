@@ -14,7 +14,7 @@ export default function JoinQuiz({ onClose }) {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-gray-800 text-white p-6 rounded-lg w-full max-w-md mx-4">
+            <div style={{ backgroundColor: "#262626" }} className="text-white p-6 rounded-lg w-full max-w-md mx-4">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold">Join a Quiz</h2>
                     <button onClick={goToHome} className="text-gray-400 hover:text-white">
@@ -31,7 +31,7 @@ export default function JoinQuiz({ onClose }) {
                         placeholder="Enter quiz name..."
                         className="w-full p-2 rounded border-b-2 border-gray-500 bg-gray-900 text-white focus:border-blue-500 outline-none"
                     />
-                    <button className="mt-3 bg-blue-500 hover:bg-blue-600 w-full text-white py-2 rounded font-semibold">Search</button>
+                    <button className="mt-3 bg-blue-900 hover:bg-blue-600 w-full text-white py-2 rounded-full font-semibold">Search</button>
                 </div>
 
                 <div className="mb-4">
@@ -43,7 +43,7 @@ export default function JoinQuiz({ onClose }) {
                         placeholder="Enter quiz code..."
                         className="w-full p-2 rounded border-b-2 border-gray-500 bg-gray-900 text-white focus:border-green-500 outline-none"
                     />
-                    <button className="mt-3 bg-green-500 hover:bg-green-600 w-full text-white py-2 rounded font-semibold">Join Quiz</button>
+                    <button style={{ backgroundColor: "#078C10" }} className="mt-3 hover:bg-green-600 w-full text-white py-2 rounded-full font-semibold">Join Quiz</button>
                 </div>
             </div>
         </div>

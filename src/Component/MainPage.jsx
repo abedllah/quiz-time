@@ -64,7 +64,7 @@ export default function MainPage() {
                         <img src="https://placehold.co/50x50" alt="Quiz creation 2" className="rounded-full  w-20 h-20"/>
                         <img src="https://placehold.co/50x50" alt="Quiz creation 3" className="rounded-full  w-20 h-20"/>
                         <img src="https://placehold.co/50x50" alt="Quiz creation 4" className="rounded-full  w-20 h-20"/>
-                        <button className="bg-green-500 text-white px-4 py-4 rounded-full  w-20 h-20">Play</button>
+                        <button style={{ backgroundColor: "#078C10" }} className="bg-green-500 text-white px-4 py-4 rounded-full  w-20 h-20">Play</button>
                     </div>
                 </section>
                 <br />
@@ -110,7 +110,7 @@ export default function MainPage() {
                 <div className="joinSec mb-8">
                     <h3 className="text-xl font-bold mb-4">Join a Quiz</h3>
                     <p className=" mb-4">Test your knowledge with challenging questions!</p>
-                    <button className="bg-white text-black px-4 py-2 w-100"><a href="/JoinQuiz">Join</a></button>
+                    <a href="/JoinQuiz"><button style={{ backgroundColor: "#078C10" }} className=" text-white px-4 py-2 w-100">Join</button></a>
                 </div>
                 <div>
                     <h3 className="text-xl font-bold mb-4">Quiz Leaderboard</h3>
