@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Component/Home';
-import SignUp from './Component/SignUp';
 import './css/App.css';
 import MainPage from './Component/MainPage';
 import CreateQuiz from './Component/CreatQuiz';
 import JoinQuiz from './Component/JoinQioz';
 import QuizPage from './Component/QuizPage';
+import Login from './Component/Login';
+import Signup from './Component/Signup';
 
 
 export default function App(){
@@ -18,7 +19,8 @@ export default function App(){
           <Route path="/MainPage" element={<MainPage />} />
           <Route path="/JoinQuiz" element={<JoinQuiz />} />
           <Route path="/QuizPage" element={<QuizPage />} />
-          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
     </div>

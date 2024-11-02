@@ -17,7 +17,7 @@ export default function NavigationBar() {
             <Link to="/MainPage" className="py-4 px-2  font-semibold hover:text-green-500 transition duration-300">HOME</Link>
             <Link to="/CreatQuiz" className="py-4 px-2  font-semibold hover:text-green-500 transition duration-300">Create Quiz</Link>
             <Link to="/JoinQuiz" className="py-4 px-2  font-semibold hover:text-green-500 transition duration-300">Join Quiz</Link>
-            <Link to="/SignUp" className="py-4 px-2  font-semibold hover:text-green-500 transition duration-300">Sign Up</Link>
+            <Link to="/Login" className="py-4 px-2  font-semibold hover:text-green-500 transition duration-300">Login</Link>
           </div>
           <div className="md:hidden flex items-center">
             <button className="outline-none mobile-menu-button" onClick={() => setIsOpen(!isOpen)}>

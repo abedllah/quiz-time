@@ -14,6 +14,8 @@
     color: white;
     border: 1px solid rgb(81, 81, 81);
     border-radius: 30px;
+    background-color: #078C10;
+    padding-left: 10px;
 }
 
 .sideSection  {
