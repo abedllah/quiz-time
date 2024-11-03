@@ -2,10 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('./config/db'); // Import the database connection
+const db = require('./config/db');
+require('dotenv').config();
 
 const app = express();
 const PORT = 5000;
+const jwtSecret = process.env.JWT_SECRET;
 
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
@@ -43,7 +45,7 @@ app.post('/api/login', (req, res) => {
             if (err || !match) return res.status(401).send('Invalid credentials.');
 
             // Generate a JWT token
-            const token = jwt.sign({ id: user.id }, 'your_jwt_secret', { expiresIn: '1h' });
+            const token = jwt.sign({ id: user.id }, 'jwtSecret', { expiresIn: '1h' });
             res.status(200).json({ token });
         });
     });
