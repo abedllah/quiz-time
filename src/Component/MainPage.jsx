@@ -1,8 +1,17 @@
 import React from 'react'
 import './../css/MainPage.css'
-
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 
 export default function MainPage() {
+
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    };
 
     return (
         <div className="flex h-screen w-full">
@@ -42,9 +51,11 @@ export default function MainPage() {
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="flex items-center p-2">
+                            <button onClick={handleLogout}>
+                            <a href="" className="flex items-center p-2">
                                 <i className="fas fa-sign-out-alt mr-2"></i> Log Out
                             </a>
+                            </button>
                         </li>
                     </ul>
                 </div>

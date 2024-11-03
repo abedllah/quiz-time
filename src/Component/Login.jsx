@@ -1,12 +1,14 @@
 import React, {useState} from "react";
 import { TEInput, TERipple } from "tw-elements-react";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +23,7 @@ export default function Login() {
     if (response.ok) {
         alert('Login successful! Token: ' + data.token);
         localStorage.setItem('token', data.token);
+        login(data.token);
         navigate('/MainPage');
     } else {
         alert(data);
