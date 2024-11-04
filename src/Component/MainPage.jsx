@@ -13,11 +13,14 @@ export default function MainPage() {
         navigate('/login');
     };
 
+    const user_id = localStorage.getItem('user_id');
+    console.log('User ID:', user_id);  // To verify it's correct
+
     return (
         <div className="flex h-screen w-full">
             <aside className="sideNave w-1/4  p-4 flex flex-col justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold mb-8">QuizMaster</h1>
+                    <h1 className="text-2xl font-bold mb-8">QuizTime</h1>
                     <nav>
                         <ul>
                             <li className="mb-4">
@@ -63,7 +66,7 @@ export default function MainPage() {
             <main className="mainSection w-3/4 p-8">
                 <header className="flex justify-between items-center mb-8">
                     <div>
-                        <h2 className="text-3xl font-bold">Welcome to QuizMaster!</h2>
+                        <h2 className="text-3xl font-bold">Welcome to QuizTime!</h2>
                         <p className="text-white">Quiz Level: Advanced</p>
                     </div>
                     <img src="https://placehold.co/50x50" alt="User profile picture" className="rounded-full w-12 h-12"/>

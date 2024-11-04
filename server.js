@@ -8,6 +8,7 @@ require('dotenv').config();
 const app = express();
 const PORT = 5000;
 const jwtSecret = process.env.JWT_SECRET;
+const quizRoutes = require('./routes/quizRoutes');
 
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
@@ -35,21 +36,23 @@ app.post('/api/login', (req, res) => {
 
     // Check if the user exists
     const query = 'SELECT * FROM users WHERE email = ?';
+    const id =
     db.query(query, [email], (error, results) => {
         if (error || results.length === 0) return res.status(401).send('User not found.');
 
         const user = results[0];
 
-        // Compare the provided password with the hashed password in the database
         bcrypt.compare(password, user.password, (err, match) => {
             if (err || !match) return res.status(401).send('Invalid credentials.');
 
-            // Generate a JWT token
             const token = jwt.sign({ id: user.id }, 'jwtSecret', { expiresIn: '1h' });
-            res.status(200).json({ token });
+            const id = user.id
+            res.status(200).json({ token,id});
         });
     });
 });
+
+app.use('/api/quiz', quizRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

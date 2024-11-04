@@ -20,15 +20,18 @@ export default function Login() {
         body: JSON.stringify({ email, password }),
     });
     const data = await response.json();
+    console.log(data);
+
     if (response.ok) {
-        alert('Login successful! Token: ' + data.token);
+        alert('Login successful!');
         localStorage.setItem('token', data.token);
-        login(data.token);
+        localStorage.setItem('user_id', data.id); // Ensure user_id is being saved
+        login(data.token);  // Assuming this function handles login state
         navigate('/MainPage');
     } else {
         alert(data);
     }
-  };
+};
 
   return (
     <section className="h-screen text-white">
