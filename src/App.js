@@ -6,7 +6,7 @@ import CreateQuiz from './Component/CreatQuiz';
 import JoinQuiz from './Component/JoinQioz';
 import QuizPage from './Component/QuizPage';
 import Login from './Component/Login';
-import Signup from './Component/signup';
+import Signup from './Component/Signup';
 import { AuthProvider } from './AuthContext';
 import PrivateRoute from './PrivateRoute';
 

@@ -14,7 +14,7 @@ export default function MainPage() {
     };
 
     const user_id = localStorage.getItem('user_id');
-    console.log('User ID:', user_id);  // To verify it's correct
+    console.log('User ID:', user_id); 
 
     return (
         <div className="flex h-screen w-full">

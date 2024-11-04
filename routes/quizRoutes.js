@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const connection = require("../config/db");
+const connection = require("../config/dbp");
 const { v4: uuidv4 } = require("uuid");
 
 // Route to create a quiz with questions and answers
@@ -27,7 +27,7 @@ router.post('/quiz', async (req, res) => {
                 'INSERT INTO questions (quiz_id, question_text) VALUES (?, ?)',
                 [quiz_id, question.text]
             );
-            const question_id = questionResult.insertId;
+            const question_id = questionResult[0].insertId;
 
             for (const answer of question.answers) {
                 await connection.query(

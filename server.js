@@ -52,7 +52,7 @@ app.post('/api/login', (req, res) => {
     });
 });
 
-app.use('/api/quiz', quizRoutes);
+app.use('/api', quizRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
