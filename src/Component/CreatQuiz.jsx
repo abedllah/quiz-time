@@ -9,6 +9,8 @@ export default function CreatQuiz() {
         { question: '', answers: ['', '', '', ''], correctAnswer: 0 }
     ]);
     const [redirect, setRedirect] = useState(false);
+    const [quizCode, setQuizCode] = useState(null);
+    const [showPopup, setShowPopup] = useState(false);
 
     // Add a question
     const handleAddQuestion = () => {
@@ -70,17 +72,26 @@ export default function CreatQuiz() {
                 body: JSON.stringify(quizData)
             });
 
+            const data = await response.json();
+
             if (response.ok) {
                 alert('Quiz created successfully!');
-                setRedirect(true); // Redirect after successful creation
+                setQuizCode(data.quiz_code);
+                setShowPopup(true);
+                 // Redirect after successful creation
             } else {
-                const data = await response.json();
                 alert(`Error: ${data.error}`);
             }
         } catch (error) {
             console.error('Error creating quiz:', error);
             alert('An error occurred. Please try again.');
         }
+    };
+
+    const handlePopupClose = () => {
+        setShowPopup(false);
+        // Redirect or any additional action here
+        setRedirect(true);
     };
 
     if (redirect) {
@@ -91,7 +102,7 @@ export default function CreatQuiz() {
         <div>
             <NavigationBar />
             <div className="mainS flex justify-center w-full text-white">
-                <div className="bg-gray-800 p-8 w-3/4">
+                <div className="main2 bg-gray-800 p-8 w-3/4">
                     <h1 className="text-2xl font-bold mb-4">Create Your Quiz</h1>
                     <label className="block mb-2">Title</label>
                     <input
@@ -146,6 +157,20 @@ export default function CreatQuiz() {
                         Submit Quiz
                     </button>
                 </div>
+            {/* Popup for displaying the quiz code */}
+            {showPopup && (
+                <div className="popup-overlay">
+                    <div className="popup-content">
+                        <h2>Quiz Created!</h2>
+                        <p>Your quiz code is:</p>
+                        <h3>{quizCode}</h3>
+                        <button onClick={() => navigator.clipboard.writeText(quizCode)}>
+                            Copy Code
+                        </button>
+                        <button onClick={handlePopupClose}>Done</button>
+                    </div>
+                </div>
+            )}
             </div>
         </div>
     );
