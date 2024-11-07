@@ -5,50 +5,78 @@ import NavigationBar from "./NavigationBar";
 const QuizPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const quizData = location.state?.quiz; // Access quizData from location.state
+    const quizData = location.state?.quiz;
+    const userId = localStorage.getItem("user_id");
 
-    // Initialize state variables
+    // State variables
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState([]);
     const [showScore, setShowScore] = useState(false);
     const [showCorrection, setShowCorrection] = useState(false);
 
-    // Handle cases where quizData is not available
+    // Handle missing quiz data by redirecting
     useEffect(() => {
         if (!quizData) {
             console.warn("No quiz data available, redirecting to JoinQuiz.");
-            navigate('/JoinQuiz'); // Redirect if data is missing
+            navigate('/JoinQuiz');
         }
     }, [quizData, navigate]);
 
-    // Return early if quizData is not available
+    // Early return if no questions are available
     if (!quizData || !quizData.questions || quizData.questions.length === 0) {
         return <div>No questions are available</div>;
     }
 
-    // Rest of the QuizPage component logic
-    const handleAnswerClick = (isCorrect) => {
-        setSelectedAnswers(prev => [...prev, isCorrect]);
-        if (isCorrect) {
-            setScore(prev => prev + 1);
-        }
+    // Track selected answers for each question
+    const handleAnswerSelection = (questionIndex, isCorrect, answerId) => {
+        const updatedAnswers = [...selectedAnswers];
+        updatedAnswers[questionIndex] = { isCorrect, answerId };
+        setSelectedAnswers(updatedAnswers);
     };
 
-    const handleNextQuestion = () => {
+    // Proceed to next question or finish the quiz
+    const handleNext = () => {
         if (currentQuestion < quizData.questions.length - 1) {
-            setCurrentQuestion(currentQuestion + 1);
+            setCurrentQuestion(prev => prev + 1);
         } else {
             setShowScore(true);
+            // Calculate score based on correct answers
+            const finalScore = selectedAnswers.reduce(
+                (acc, answer) => (answer?.isCorrect ? acc + 1 : acc), 
+                0
+            );
+            setScore(finalScore);
         }
     };
 
-    const handleViewCorrection = () => {
-        setShowCorrection(true);
-    };
+    // Submit quiz results to the server
+    const handleQuizComplete = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/saveQuizResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId,
+                    quizId: quizData.id,
+                    score,
+                    answers: selectedAnswers.map(answer => ({
+                        questionId: quizData.questions[selectedAnswers.indexOf(answer)].id,
+                        selectedAnswerId: answer.answerId,
+                    })),
+                }),
+            });
 
-    const goHome = () => {
-        navigate('/MainPage');
+            if (!response.ok) {
+                throw new Error("Failed to save quiz result");
+            }
+            console.log("Quiz result saved successfully.");
+            navigate('/MainPage');
+        } catch (error) {
+            console.error("Error saving quiz result:", error);
+        }
     };
 
     return (
@@ -59,10 +87,10 @@ const QuizPage = () => {
                     {showScore ? (
                         <div className="text-center">
                             <h1 className="text-4xl font-bold mb-4">Your Score: {score} out of {quizData.questions.length}</h1>
-                            <button onClick={goHome} className="bg-blue-500 px-4 py-2 rounded-full text-white mr-4">
+                            <button onClick={handleQuizComplete} className="bg-blue-500 px-4 py-2 rounded-full text-white mr-4">
                                 Return
                             </button>
-                            <button onClick={handleViewCorrection} className="bg-green-500 px-4 rounded-full py-2 text-white">
+                            <button onClick={() => setShowCorrection(true)} className="bg-green-500 px-4 rounded-full py-2 text-white">
                                 View Correction
                             </button>
                         </div>
@@ -80,7 +108,8 @@ const QuizPage = () => {
                                             name="answer"
                                             id={`answer-${index}`}
                                             className="mr-2"
-                                            onChange={() => handleAnswerClick(answer.is_correct)}
+                                            onChange={() => handleAnswerSelection(currentQuestion, answer.is_correct, answer.id)}
+                                            checked={selectedAnswers[currentQuestion]?.answerId === answer.id}
                                         />
                                         <label htmlFor={`answer-${index}`} className="border-b border-gray-600 p-1 focus:outline-none">
                                             {answer.answer_text}
@@ -89,7 +118,7 @@ const QuizPage = () => {
                                 ))}
                             </div>
                             <button
-                                onClick={handleNextQuestion}
+                                onClick={handleNext}
                                 className="w-full rounded-full p-2 text-white bg-blue-500 hover:bg-blue-600"
                             >
                                 {currentQuestion < quizData.questions.length - 1 ? "Next Question" : "Quiz Complete"}
@@ -103,12 +132,8 @@ const QuizPage = () => {
                                 <div key={index} className="mb-4">
                                     <h3 className="font-semibold">{question.question_text}</h3>
                                     {question.answers.map((answer, ansIndex) => {
-                                        const selected = selectedAnswers[index];
-                                        const answerStyle = selected === answer.is_correct
-                                            ? "text-green-500"
-                                            : selected !== undefined && selected !== answer.is_correct
-                                                ? "text-red-500"
-                                                : "";
+                                        const selected = selectedAnswers[index]?.answerId === answer.id;
+                                        const answerStyle = answer.is_correct ? "text-green-500" : (selected ? "text-red-500" : "");
                                         return (
                                             <div key={ansIndex} className={`flex items-center mb-2 ${answerStyle}`}>
                                                 <label className="border-b border-gray-600 p-1 focus:outline-none">

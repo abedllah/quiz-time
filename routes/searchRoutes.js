@@ -66,4 +66,41 @@ router.get('/quiz/:code', async (req, res) => {
     }
 });
 
+
+router.post('/saveQuizResult', async (req, res) => {
+    const { userId, quizId, score, answers } = req.body;
+
+    try {
+        // Step 1: Insert the score into `user_quiz_results`
+        const [result] = await db.promise().execute(
+            'INSERT INTO user_quiz_results (user_id, quiz_id, score) VALUES (?, ?, ?)',
+            [userId, quizId, score]
+        );
+        const userQuizResultId = result.insertId;
+
+        // Step 2: Ensure `answers` is a valid array
+        if (!Array.isArray(answers)) {
+            console.error("Error: Answers is not an array:", answers);
+            return res.status(400).json({ error: 'Answers should be an array' });
+        }
+
+        // Step 3: Insert each answer into `user_answers`
+        const answerInsertPromises = answers.map(answer => {
+            return db.promise().execute(
+                'INSERT INTO user_answers (user_quiz_result_id, question_id, selected_answer_id) VALUES (?, ?, ?)',
+                [userQuizResultId, answer.questionId, answer.selectedAnswerId]
+            );
+        });
+
+        // Execute all insertions for answers concurrently
+        await Promise.all(answerInsertPromises);
+
+        // Send a success response
+        res.status(200).json({ message: 'Quiz result saved successfully' });
+    } catch (error) {
+        console.error("Error saving quiz result:", error);
+        res.status(500).json({ error: 'Failed to save quiz result' });
+    }
+});
+
 module.exports = router;
