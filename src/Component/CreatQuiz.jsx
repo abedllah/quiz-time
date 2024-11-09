@@ -5,9 +5,11 @@ import { Navigate } from "react-router-dom";
 
 export default function CreatQuiz() {
     const [title, setTitle] = useState("");
-    const [questions, setQuestions] = useState([
-        { question: '', answers: ['', '', '', ''], correctAnswer: 0 }
-    ]);
+    const [description, setDescription] = useState("");
+    const [isPublic, setIsPublic] = useState(true);
+    const [image, setImage] = useState(null);
+    const [questions, setQuestions] = useState([{ question: '', answers: ['', '', '', ''], correctAnswer: 0 }]);
+    const [showQuestionsSection, setShowQuestionsSection] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [quizCode, setQuizCode] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
@@ -21,23 +23,10 @@ export default function CreatQuiz() {
     };
 
     // Handle title input change
-    const handleTitleChange = (value) => {
-        setTitle(value);
-    };
-
-    // Handle question input change
-    const handleQuestionChange = (index, value) => {
-        const newQuestions = [...questions];
-        newQuestions[index].question = value;
-        setQuestions(newQuestions);
-    };
-
-    // Handle answer input change
-    const handleAnswerChange = (qIndex, aIndex, value) => {
-        const newQuestions = [...questions];
-        newQuestions[qIndex].answers[aIndex] = value;
-        setQuestions(newQuestions);
-    };
+    const handleTitleChange = (value) => setTitle(value);
+    const handleDescriptionChange = (value) => setDescription(value);
+    const handleImageChange = (event) => setImage(URL.createObjectURL(event.target.files[0]));
+    const handleIsPublicChange = () => setIsPublic(!isPublic);
 
     // Handle submit quiz
     const handleSubmitQuiz = async () => {
@@ -51,6 +40,9 @@ export default function CreatQuiz() {
 
         const quizData = {
             title,
+            description,
+            is_public: isPublic,
+            image,
             user_id,
             questions: questions.map(q => ({
                 text: q.question,
@@ -78,7 +70,6 @@ export default function CreatQuiz() {
                 alert('Quiz created successfully!');
                 setQuizCode(data.quiz_code);
                 setShowPopup(true);
-                 // Redirect after successful creation
             } else {
                 alert(`Error: ${data.error}`);
             }
@@ -90,7 +81,6 @@ export default function CreatQuiz() {
 
     const handlePopupClose = () => {
         setShowPopup(false);
-        // Redirect or any additional action here
         setRedirect(true);
     };
 
@@ -104,73 +94,136 @@ export default function CreatQuiz() {
             <div className="mainS flex justify-center w-full text-white">
                 <div className="main2 bg-gray-800 p-8 w-3/4">
                     <h1 className="text-2xl font-bold mb-4">Create Your Quiz</h1>
-                    <label className="block mb-2">Title</label>
-                    <input
-                        type="text"
-                        placeholder="Enter the title"
-                        className="w-full p-2 bg-gray-700 text-white rounded"
-                        value={title}
-                        onChange={(e) => handleTitleChange(e.target.value)}
-                    />
 
-                    {questions.map((q, qIndex) => (
-                        <div key={qIndex} className="mb-6">
-                            <label className="block mb-2">Question {qIndex + 1}</label>
-                            <input
-                                type="text"
-                                placeholder="Enter your question here"
-                                className="w-full p-2 bg-gray-700 text-white rounded"
-                                value={q.question}
-                                onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
-                            />
-                            <div className="mt-4">
-                                <label className="block mb-2">Multiple Choice Answers</label>
-                                {q.answers.map((answer, aIndex) => (
-                                    <div key={aIndex} className="flex items-center mb-2">
-                                        <input
-                                            type="radio"
-                                            name={`answer-${qIndex}`}
-                                            className="mr-2"
-                                            checked={q.correctAnswer === aIndex}
-                                            onChange={() => {
-                                                const newQuestions = [...questions];
-                                                newQuestions[qIndex].correctAnswer = aIndex;
-                                                setQuestions(newQuestions);
-                                            }}
-                                        />
-                                        <input
-                                            type="text"
-                                            placeholder={`Answer option ${aIndex + 1}`}
-                                            className="w-full bg-gray-700 text-white border-b border-gray-500 p-1 focus:outline-none"
-                                            value={answer}
-                                            onChange={(e) => handleAnswerChange(qIndex, aIndex, e.target.value)}
-                                        />
-                                    </div>
-                                ))}
+                    {/* Initial Quiz Info Section */}
+                    <div className={`quiz-info ${showQuestionsSection ? 'hidden' : ''}`}>
+                        <label className="block mb-2">Title:</label>
+                        <input
+                            type="text"
+                            placeholder="Enter the title"
+                            className="w-full p-2 bg-gray-700 text-white rounded"
+                            value={title}
+                            onChange={(e) => handleTitleChange(e.target.value)}
+                        />
+
+                        <label className="block mt-4 mb-2">Description:</label>
+                        <input
+                            type="text"
+                            placeholder="Enter the description"
+                            className="w-full p-2 bg-gray-700 text-white rounded"
+                            value={description}
+                            onChange={(e) => handleDescriptionChange(e.target.value)}
+                        />
+
+                        <label className="block mt-4 mb-2">Public:</label>
+                        <input
+                            type="checkbox"
+                            checked={isPublic}
+                            onChange={handleIsPublicChange}
+                            className="mr-2"
+                        />
+                        <span>{isPublic ? 'Yes' : 'No'}</span>
+
+                        <div className="mt-4 mb-6">
+                            <label>Quiz Picture:</label>
+                            <div
+                                className="quiz-picture rounded-full bg-gray-600 w-24 h-24 flex items-center justify-center cursor-pointer"
+                                onClick={() => document.getElementById('imageUpload').click()}
+                            >
+                                {image ? (
+                                    <img src={image} alt="Quiz" className="w-full h-full object-cover rounded-full" />
+                                ) : (
+                                    <span>Upload</span>
+                                )}
                             </div>
+                            <input
+                                type="file"
+                                id="imageUpload"
+                                className="hidden"
+                                onChange={handleImageChange}
+                            />
                         </div>
-                    ))}
-                    <button onClick={handleAddQuestion} className="w-full bg-blue-600 p-2 rounded-full text-white mb-4">
-                        Add Another Question
-                    </button>
-                    <button onClick={handleSubmitQuiz} className="w-full bg-green-600 p-2 rounded-full text-white">
-                        Submit Quiz
-                    </button>
-                </div>
-            {/* Popup for displaying the quiz code */}
-            {showPopup && (
-                <div className="popup-overlay">
-                    <div className="popup-content">
-                        <h2>Quiz Created!</h2>
-                        <p>Your quiz code is:</p>
-                        <h3>{quizCode}</h3>
-                        <button onClick={() => navigator.clipboard.writeText(quizCode)}>
-                            Copy Code
+
+                        <button
+                            onClick={() => setShowQuestionsSection(true)}
+                            className="w-full bg-blue-600 p-2 rounded-full text-white"
+                        >
+                            Next: Add Questions
                         </button>
-                        <button onClick={handlePopupClose}>Done</button>
                     </div>
+
+                    {/* Questions Section */}
+                    {showQuestionsSection && (
+                        <div className="questions-section">
+                            {questions.map((q, qIndex) => (
+                                <div key={qIndex} className="mb-6">
+                                    <label className="block mb-2">Question {qIndex + 1}</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter your question here"
+                                        className="w-full p-2 bg-gray-700 text-white rounded"
+                                        value={q.question}
+                                        onChange={(e) => {
+                                            const newQuestions = [...questions];
+                                            newQuestions[qIndex].question = e.target.value;
+                                            setQuestions(newQuestions);
+                                        }}
+                                    />
+                                    <div className="mt-4">
+                                        <label className="block mb-2">Multiple Choice Answers</label>
+                                        {q.answers.map((answer, aIndex) => (
+                                            <div key={aIndex} className="flex items-center mb-2">
+                                                <input
+                                                    type="radio"
+                                                    name={`answer-${qIndex}`}
+                                                    className="mr-2"
+                                                    checked={q.correctAnswer === aIndex}
+                                                    onChange={() => {
+                                                        const newQuestions = [...questions];
+                                                        newQuestions[qIndex].correctAnswer = aIndex;
+                                                        setQuestions(newQuestions);
+                                                    }}
+                                                />
+                                                <input
+                                                    type="text"
+                                                    placeholder={`Answer option ${aIndex + 1}`}
+                                                    className="w-full bg-gray-700 text-white border-b border-gray-500 p-1 focus:outline-none"
+                                                    value={answer}
+                                                    onChange={(e) => {
+                                                        const newQuestions = [...questions];
+                                                        newQuestions[qIndex].answers[aIndex] = e.target.value;
+                                                        setQuestions(newQuestions);
+                                                    }}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                            <button onClick={handleAddQuestion} className="w-full bg-blue-600 p-2 rounded-full text-white mb-4">
+                                Add Another Question
+                            </button>
+                            <button onClick={handleSubmitQuiz} className="w-full bg-green-600 p-2 rounded-full text-white">
+                                Submit Quiz
+                            </button>
+                        </div>
+                    )}
                 </div>
-            )}
+
+                {/* Popup for displaying the quiz code */}
+                {showPopup && (
+                    <div className="popup-overlay">
+                        <div className="popup-content">
+                            <h2>Quiz Created!</h2>
+                            <p>Your quiz code is:</p>
+                            <h3>{quizCode}</h3>
+                            <button onClick={() => navigator.clipboard.writeText(quizCode)}>
+                                Copy Code
+                            </button>
+                            <button onClick={handlePopupClose}>Done</button>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

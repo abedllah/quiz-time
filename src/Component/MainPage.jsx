@@ -67,7 +67,6 @@ export default function MainPage() {
                 <header className="flex justify-between items-center mb-8">
                     <div>
                         <h2 className="text-3xl font-bold">Welcome to QuizTime!</h2>
-                        <p className="text-white">Quiz Level: Advanced</p>
                     </div>
                     <img src="https://placehold.co/50x50" alt="User profile picture" className="rounded-full w-12 h-12"/>
                 </header>

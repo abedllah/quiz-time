@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 // Route to create a quiz with questions and answers
 router.post('/quiz', async (req, res) => {
     try {
-        const { title, user_id, questions } = req.body;
+        const { title, description, is_public, image, user_id, questions } = req.body;
         if (!user_id) {
             return res.status(400).json({ error: 'User ID is required.' });
         }
@@ -16,8 +16,8 @@ router.post('/quiz', async (req, res) => {
 
         // Insert the quiz into the `quizzes` table
         const quizResult = await connection.query(
-            'INSERT INTO quizzes (title, quiz_code, created_by) VALUES (?, ?, ?)',
-            [title, quiz_code, user_id]
+            'INSERT INTO quizzes (title, description, quiz_code, created_by, is_public, quiz_pic) VALUES (?, ?, ?, ?, ?, ?)',
+            [title, description, quiz_code, user_id, is_public, image]
         );
         const quiz_id = quizResult[0].insertId;
 

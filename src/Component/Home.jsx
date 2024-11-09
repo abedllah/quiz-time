@@ -3,7 +3,7 @@ import NavigationBar from './NavigationBar';
 
 export default function Home() {
   return (
-    <div style={{ marginTop: '150px' }}>
+    <div style={{ marginTop: '150px'}}>
       <NavigationBar />
       <div className="container-fluid mt-5 text-white">
         <div className="row justify-content-center align-items-center">
@@ -16,13 +16,13 @@ export default function Home() {
               <button className='rounded-full mt-4 pl-4 pt-1 pb-1 pr-4 bg-green-700 font-bold'>Take a Quiz</button>
             </p>
           </div>
-          <div className="col-md-6 mt-4">
+          {/* <div className="col-md-6 mt-4">
             <img
               src="https://fastly.picsum.photos/id/60/1920/1200.jpg?hmac=fAMNjl4E_sG_WNUjdU39Kald5QAHQMh-_-TsIbbeDNI"
-              alt="E-commerce"
+              alt=""
               className="img-fluid rounded"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

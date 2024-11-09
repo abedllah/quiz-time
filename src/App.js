@@ -9,6 +9,7 @@ import Login from './Component/Login';
 import Signup from './Component/Signup';
 import { AuthProvider } from './AuthContext';
 import PrivateRoute from './PrivateRoute';
+import Profile from './Component/Profile';
 
 
 export default function App(){
@@ -24,6 +25,7 @@ export default function App(){
           <Route path="/QuizPage" element={<PrivateRoute><QuizPage /></PrivateRoute>} />
           <Route path="/Login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
       </AuthProvider>
