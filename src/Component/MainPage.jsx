@@ -1,26 +1,53 @@
-import React from 'react'
-import './../css/MainPage.css'
+import React, { useState, useEffect } from 'react';
+import './../css/MainPage.css';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import axios from 'axios';
 
 export default function MainPage() {
-
+    const [userData, setUserData] = useState([]);
+    const [quizzes, setQuizzes] = useState([]);
     const { logout } = useAuth();
     const navigate = useNavigate();
+    const user_id = localStorage.getItem('user_id');
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/user-data/${user_id}`);
+                setUserData(response.data.user);
+                setQuizzes(response.data.quizzes[0]);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        if (user_id) fetchUserData();
+    }, [user_id]);
+
+    const fetchQuizAndNavigate = async (quizCode) => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/quiz/${quizCode}`);
+            if (!response.ok) throw new Error('Quiz code not found.');
+            
+            const quizData = await response.json();
+            navigate('/QuizPage', { state: { quiz: quizData } });
+        } catch (error) {
+            console.error('Error joining quiz:', error.message);
+            // Optional: set an error state if you want to display an error message
+        }
+    }; 
 
     const handleLogout = () => {
         logout();
         navigate('/login');
     };
 
-    const user_id = localStorage.getItem('user_id');
-    console.log('User ID:', user_id); 
-
     return (
         <div className="flex h-screen w-full">
-            <aside className="sideNave w-1/4  p-4 flex flex-col justify-between">
+            <aside className="sideNave w-1/4 p-4 flex flex-col justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold mb-8">QuizTime</h1>
+                <img className=' w-60 mb-3 pl-0 relative right-6' src={'logo.png'} alt="logo" />
                     <nav>
                         <ul>
                             <li className="mb-4">
@@ -39,7 +66,7 @@ export default function MainPage() {
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="flex items-center p-2 rounded">
+                                <a href="/profile" className="flex items-center p-2 rounded">
                                     <i className="fas fa-user mr-2"></i> My Profile
                                 </a>
                             </li>
@@ -48,16 +75,11 @@ export default function MainPage() {
                 </div>
                 <div>
                     <ul>
-                        <li className="mb-4">
-                            <a href="#" className="flex items-center p-2 ">
-                                <i className="fas fa-cog mr-2"></i> Settings
-                            </a>
-                        </li>
                         <li>
                             <button onClick={handleLogout}>
-                            <a href="" className="flex items-center p-2">
-                                <i className="fas fa-sign-out-alt mr-2"></i> Log Out
-                            </a>
+                                <a href="" className="flex items-center p-2">
+                                    <i className="fas fa-sign-out-alt mr-2"></i> Log Out
+                                </a>
                             </button>
                         </li>
                     </ul>
@@ -66,18 +88,35 @@ export default function MainPage() {
             <main className="mainSection w-3/4 p-8">
                 <header className="flex justify-between items-center mb-8">
                     <div>
-                        <h2 className="text-3xl font-bold">Welcome to QuizTime!</h2>
+                        <h2 className="text-3xl font-bold">
+                            Welcome, {userData.length > 0 ? userData[0].username : 'User'}!
+                        </h2>
                     </div>
-                    <img src="https://placehold.co/50x50" alt="User profile picture" className="rounded-full w-12 h-12"/>
+                    <img 
+                        src={userData.length > 0 ? userData[0].user_pic : 'https://placehold.co/50x50'} 
+                        alt="User profile picture" 
+                        className="rounded-full w-12 h-12" 
+                    />
                 </header>
                 <section className="mb-8">
                     <h3 className="text-xl font-bold mb-4">Your Quiz Creations</h3>
                     <div className="flex items-center space-x-4">
-                        <img src="https://placehold.co/50x50" alt="Quiz creation 1" className="rounded-full w-20 h-20"/>
-                        <img src="https://placehold.co/50x50" alt="Quiz creation 2" className="rounded-full  w-20 h-20"/>
-                        <img src="https://placehold.co/50x50" alt="Quiz creation 3" className="rounded-full  w-20 h-20"/>
-                        <img src="https://placehold.co/50x50" alt="Quiz creation 4" className="rounded-full  w-20 h-20"/>
-                        <button style={{ backgroundColor: "#078C10" }} className="bg-green-500 text-white px-4 py-4 rounded-full  w-20 h-20">Play</button>
+                        {quizzes.map((quiz) => (
+                            <div key={quiz.id} className="flex flex-col items-center">
+                                <img 
+                                    src={quiz.quiz_pic || 'https://placehold.co/50x50'} 
+                                    alt={`Quiz ${quiz.title}`} 
+                                    className="rounded-full w-20 h-20"
+                                />
+                                <button 
+                                    style={{ backgroundColor: "#078C10" }} 
+                                    className="bg-green-500 text-white px-4 py-2 mt-2 rounded"
+                                    onClick={() => fetchQuizAndNavigate(quiz.quiz_code)}
+                                >
+                                    Play
+                                </button>
+                            </div>
+                        ))}
                     </div>
                 </section>
                 <br />
@@ -87,7 +126,7 @@ export default function MainPage() {
                             <h4 className="text-lg font-bold">Quiz Time!</h4>
                             <p className="text-gray-400">Put your knowledge to the test with our</p>
                         </div>
-                        <button className="bg-white text-black px-4 py-2 ">Start</button>
+                        <button className="bg-white text-black px-4 py-2 "><a href="/JoinQuiz">Start</a></button>
                     </div>
                     <div className="mainT p-4  flex justify-between items-center">
                         <div>
@@ -160,6 +199,7 @@ export default function MainPage() {
                     </ul>
                 </div>
             </aside>
+            {console.log(quizzes)}
         </div>
     );
 }

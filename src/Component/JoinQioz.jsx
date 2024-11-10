@@ -65,7 +65,7 @@ export default function JoinQuiz({ onClose }) {
                     />
                     <button
                         onClick={handleSearch}
-                        className="mt-3 bg-blue-900 hover:bg-blue-600 w-full text-white py-2 rounded-full font-semibold"
+                        className="mt-3 bg-white hover:bg-blue-600 w-full text-black py-2 rounded-full font-semibold"
                     >
                         Search
                     </button>

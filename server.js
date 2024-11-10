@@ -10,6 +10,7 @@ const PORT = 5000;
 const jwtSecret = process.env.JWT_SECRET;
 const quizRoutes = require('./routes/quizRoutes');
 const searchRoutes = require('./routes/searchRoutes');
+const infoRoutes = require('./routes/infoRoutes');
 
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
@@ -55,6 +56,8 @@ app.post('/api/login', (req, res) => {
 
 app.use('/api', quizRoutes);
 app.use('/api', searchRoutes);
+app.use('/api', infoRoutes);
+app.use('/uploads', express.static('uploads'));
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

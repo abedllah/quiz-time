@@ -39,6 +39,8 @@ export default function Signup() {
 
           {/* Right column container with form */}
           <div className="w-full px-6 lg:px-12 lg:w-1/2">
+            <img className=' w-80 relative right-10 bottom-5' src={'logo.png'} alt="logo" />
+    
             <form onSubmit={handleSubmit}>
 
               <div class="flex flex-wrap -mx-3 mb-6">
