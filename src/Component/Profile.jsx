@@ -72,7 +72,7 @@ export default function Profile() {
                 }
             });
             alert('Profile updated successfully!');
-            navigate('/profile');
+            navigate(0)
         } catch (error) {
             console.error('Error updating profile:', error);
         }
@@ -112,7 +112,7 @@ export default function Profile() {
                         <ul>
                             <li className="mb-4">
                                 <a href="/MainPage" className="flex items-center p-2 rounded">
-                                    <i className=" fa-home mr-2"></i> Home
+                                    <i className="fas fa-home mr-2"></i> Home
                                 </a>
                             </li>
                             <li className="mb-4">

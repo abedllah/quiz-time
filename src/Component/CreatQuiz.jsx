@@ -26,7 +26,16 @@ export default function CreatQuiz() {
     const handleTitleChange = (value) => setTitle(value);
     const handleDescriptionChange = (value) => setDescription(value);
     const handleIsPublicChange = () => setIsPublic(!isPublic);
-    const handleImageChange = (event) => setImage(event.target.files[0]);
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     // Handle submit quiz
     const handleSubmitQuiz = async () => {
@@ -44,7 +53,7 @@ export default function CreatQuiz() {
         formData.append("description", description);
         formData.append("is_public", isPublic);
         formData.append("user_id", user_id);
-        formData.append("image", image); // Add the image file to FormData
+        formData.append("image", image);
         formData.append("questions", JSON.stringify(questions.map(q => ({
             text: q.question,
             answers: q.answers.map((answer, index) => ({
