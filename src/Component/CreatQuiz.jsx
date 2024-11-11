@@ -25,8 +25,8 @@ export default function CreatQuiz() {
     // Handle title input change
     const handleTitleChange = (value) => setTitle(value);
     const handleDescriptionChange = (value) => setDescription(value);
-    const handleImageChange = (event) => setImage(URL.createObjectURL(event.target.files[0]));
     const handleIsPublicChange = () => setIsPublic(!isPublic);
+    const handleImageChange = (event) => setImage(event.target.files[0]);
 
     // Handle submit quiz
     const handleSubmitQuiz = async () => {
@@ -38,30 +38,28 @@ export default function CreatQuiz() {
             return;
         }
 
-        const quizData = {
-            title,
-            description,
-            is_public: isPublic,
-            image,
-            user_id,
-            questions: questions.map(q => ({
-                text: q.question,
-                answers: q.answers.map((answer, index) => ({
-                    text: answer,
-                    is_correct: index === q.correctAnswer
-                }))
+        // Use FormData to include the image file
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("is_public", isPublic);
+        formData.append("user_id", user_id);
+        formData.append("image", image); // Add the image file to FormData
+        formData.append("questions", JSON.stringify(questions.map(q => ({
+            text: q.question,
+            answers: q.answers.map((answer, index) => ({
+                text: answer,
+                is_correct: index === q.correctAnswer
             }))
-        };
-        console.log(quizData);
+        }))));
 
         try {
             const response = await fetch('http://localhost:5000/api/quiz', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(quizData)
+                body: formData // Send FormData
             });
 
             const data = await response.json();

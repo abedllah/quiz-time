@@ -7,3 +7,64 @@
     background-color: #262626;
     border-radius: 25px;
 }
+
+.profile-input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 8px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.profile-input:hover,
+.profile-input:focus {
+    border-bottom-color: #078C10;
+}
+
+.update-btn {
+    background-color: #078C10;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.update-btn:hover {
+    background-color: #056b0d;
+}
+
+/* Apply to the scrollable container */
+ul {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Style the scrollbar itself */
+ul::-webkit-scrollbar {
+    width: 8px; /* Scrollbar width */
+}
+
+/* Style the draggable part of the scrollbar (the thumb) */
+ul::-webkit-scrollbar-thumb {
+    background-color: #078C10; /* Thumb color */
+    border-radius: 10px; /* Round thumb corners */
+}
+
+/* Style the scrollbar track */
+ul::-webkit-scrollbar-track {
+    background-color: #e0e0e0; /* Track color */
+    border-radius: 10px; /* Round track corners */
+}
+
+/* Style the thumb when hovered */
+ul::-webkit-scrollbar-thumb:hover {
+    background-color: #4CAF50; /* Darken the thumb on hover */
+}
+
+/* Optional: Style the corner where both scrollbars meet */
+ul::-webkit-scrollbar-corner {
+    background-color: transparent;
+}

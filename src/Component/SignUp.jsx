@@ -48,7 +48,7 @@ export default function Signup() {
                   <label class="block uppercase tracking-wide  text-xs font-bold mb-2" for="grid-username">
                     Username
                   </label>
-                  <input value={username}
+                  <input required value={username}
                   onChange={(e) => setUsername(e.target.value)} 
                   class="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-email" type="text" placeholder="abc123" />
                 </div>
@@ -59,7 +59,7 @@ export default function Signup() {
                   <label class="block uppercase tracking-wide  text-xs font-bold mb-2" for="grid-email">
                     Email
                   </label>
-                  <input value={email}
+                  <input required value={email}
                   onChange={(e) => setEmail(e.target.value)} 
                   class="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-email" type="email" placeholder="example@abc" />
                 </div>
@@ -70,7 +70,7 @@ export default function Signup() {
                   <label class="block uppercase tracking-wide  text-xs font-bold mb-2" for="grid-password">
                     Password
                   </label>
-                  <input value={password}
+                  <input required value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   class="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************" />
                 </div>

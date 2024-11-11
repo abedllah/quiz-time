@@ -34,7 +34,6 @@ export default function MainPage() {
             navigate('/QuizPage', { state: { quiz: quizData } });
         } catch (error) {
             console.error('Error joining quiz:', error.message);
-            // Optional: set an error state if you want to display an error message
         }
     }; 
 
@@ -91,9 +90,9 @@ export default function MainPage() {
                         <h2 className="text-3xl font-bold">
                             Welcome, {userData.length > 0 ? userData[0].username : 'User'}!
                         </h2>
-                    </div>
+                    </div> {/*  */}
                     <img 
-                        src={userData.length > 0 ? userData[0].user_pic : 'https://placehold.co/50x50'} 
+                        src={userData.length > 0 && userData[0].user_pic != null ? `http://localhost:5000/${userData[0].user_pic}` : 'avatar.jpg' }
                         alt="User profile picture" 
                         className="rounded-full w-12 h-12" 
                     />
@@ -104,7 +103,7 @@ export default function MainPage() {
                         {quizzes.map((quiz) => (
                             <div key={quiz.id} className="flex flex-col items-center">
                                 <img 
-                                    src={quiz.quiz_pic || 'https://placehold.co/50x50'} 
+                                     src={quiz.quiz_pic ? `http://localhost:5000${quiz.quiz_pic}` : 'https://placehold.co/50x50'} 
                                     alt={`Quiz ${quiz.title}`} 
                                     className="rounded-full w-20 h-20"
                                 />
@@ -200,6 +199,7 @@ export default function MainPage() {
                 </div>
             </aside>
             {console.log(quizzes)}
+            {console.log(userData)}
         </div>
     );
 }

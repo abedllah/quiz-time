@@ -78,6 +78,11 @@ router.post('/saveQuizResult', async (req, res) => {
         );
         const userQuizResultId = result.insertId;
 
+        db.execute(
+            'INSERT INTO quiz_attempts (user_id, quiz_id, score, completed_at) VALUES (?, ?, ?, NOW())',
+            [userId, quizId, score]
+        );
+
         // Step 2: Ensure `answers` is a valid array
         if (!Array.isArray(answers)) {
             console.error("Error: Answers is not an array:", answers);

@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('./config/db');
 require('dotenv').config();
+const path = require('path');
 
 const app = express();
 const PORT = 5000;
@@ -54,10 +55,10 @@ app.post('/api/login', (req, res) => {
     });
 });
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api', quizRoutes);
 app.use('/api', searchRoutes);
 app.use('/api', infoRoutes);
-app.use('/uploads', express.static('uploads'));
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
