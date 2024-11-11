@@ -13,6 +13,8 @@ router.get('/user-data/:user_id', async (req, res) => {
     try {
         // Fetch user data
         const [user] = await db.query('SELECT * FROM users WHERE id = ?', [user_id]);
+
+        const users = await db.query('SELECT * FROM users');
         
         // Fetch quizzes created by the user
         const quizzes = await db.query('SELECT * FROM quizzes WHERE created_by = ?', [user_id]);
@@ -21,7 +23,7 @@ router.get('/user-data/:user_id', async (req, res) => {
             ,[user_id]
         )
 
-        res.json({ user, quizzes, history });
+        res.json({ user, quizzes, history, users });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });

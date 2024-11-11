@@ -7,6 +7,7 @@ import axios from 'axios';
 export default function MainPage() {
     const [userData, setUserData] = useState([]);
     const [quizzes, setQuizzes] = useState([]);
+    const [users, setUsers] = useState([]);
     const { logout } = useAuth();
     const navigate = useNavigate();
     const user_id = localStorage.getItem('user_id');
@@ -17,6 +18,7 @@ export default function MainPage() {
                 const response = await axios.get(`http://localhost:5000/api/user-data/${user_id}`);
                 setUserData(response.data.user);
                 setQuizzes(response.data.quizzes[0]);
+                setUsers(response.data.users[0]);
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -167,39 +169,19 @@ export default function MainPage() {
                     <h3 className="text-xl font-bold mb-4">Quiz Leaderboard</h3>
                     <button className="bg-white text-black px-4 py-2 rounded mb-4">View All</button>
                     <ul className='leaderbord'>
-                        <li className="flex justify-between items-center mb-3">
+                        {users.map((user, index) => (
+                            <li key={index} className="flex justify-between items-center mb-3">
                             <div className="flex items-center">
-                                <img src="https://placehold.co/30x30" alt="Top Scorer" className="rounded-full w-8 h-8 mr-2"/>
-                                <span>#01 Top</span>
+                                <img src={`http://localhost:5000/${user.user_pic}`} alt="Top Scorer" className="rounded-full w-8 h-8 mr-2"/>
+                                <span>#{String(index + 1).padStart(2, '0')} {user.username}</span>
                             </div>
-                            <span>2398 points</span>
-                        </li>
-                        <li className="flex justify-between items-center mb-3">
-                            <div className="flex items-center">
-                                <img src="https://placehold.co/30x30" alt="Quiz Master" className="rounded-full w-8 h-8 mr-2"/>
-                                <span>#02 Master</span>
-                            </div>
-                            <span>2019 points</span>
-                        </li>
-                        <li className="flex justify-between items-center mb-3">
-                            <div className="flex items-center">
-                                <img src="https://placehold.co/30x30" alt="Quiz" className="rounded-full w-8 h-8 mr-2"/>
-                                <span>#03 Quiz</span>
-                            </div>
-                            <span>1832 points</span>
-                        </li>
-                        <li className="flex justify-between items-center">
-                            <div className="flex items-center">
-                                <img src="https://placehold.co/30x30" alt="You" className="rounded-full w-8 h-8 mr-2"/>
-                                <span>#07 You</span>
-                            </div>
-                            <span>420 points</span>
-                        </li>
+                            <span>{2398 - index * index *79} points</span>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </aside>
-            {console.log(quizzes)}
-            {console.log(userData)}
+            {console.log(users)}
         </div>
     );
 }
