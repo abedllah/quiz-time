@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { TEInput, TERipple } from "tw-elements-react";
+import {TERipple } from "tw-elements-react";
 
 export default function Signup() {
   const [username, setUsername] = useState('')

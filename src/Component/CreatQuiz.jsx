@@ -68,7 +68,7 @@ export default function CreatQuiz() {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
-                body: formData // Send FormData
+                body: formData
             });
 
             const data = await response.json();
@@ -102,7 +102,6 @@ export default function CreatQuiz() {
                 <div className="main2 bg-gray-800 p-8 w-3/4">
                     <h1 className="text-2xl font-bold mb-4">Create Your Quiz</h1>
 
-                    {/* Initial Quiz Info Section */}
                     <div className={`quiz-info ${showQuestionsSection ? 'hidden' : ''}`}>
                         <label className="block mb-2">Title:</label>
                         <input
