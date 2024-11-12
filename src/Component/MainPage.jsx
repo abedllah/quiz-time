@@ -52,7 +52,7 @@ export default function MainPage() {
                     <nav>
                         <ul>
                             <li className="mb-4">
-                                <a href="#" className="flex items-center p-2 rounded">
+                                <a href="/mainpage" className="flex items-center p-2 rounded">
                                     <i className="fas fa-home mr-2"></i> Home
                                 </a>
                             </li>
@@ -62,7 +62,7 @@ export default function MainPage() {
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="flex items-center p-2 rounded">
+                                <a href="leaderbord" className="flex items-center p-2 rounded">
                                     <i className="fas fa-trophy mr-2"></i> Leaderboard
                                 </a>
                             </li>
@@ -167,7 +167,7 @@ export default function MainPage() {
                 </div>
                 <div className=''>
                     <h3 className="text-xl font-bold mb-4">Quiz Leaderboard</h3>
-                    <button className="bg-white text-black px-4 py-2 rounded mb-4">View All</button>
+                    <a href="/leaderbord"> <button className="bg-white text-black px-4 py-2 rounded mb-4">View All</button></a>
                     <ul className='leaderbord h-auto'>
                         {users.map((user, index) => (
                             <li key={index} className="flex justify-between items-center mb-3">

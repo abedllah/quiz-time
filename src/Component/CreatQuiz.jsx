@@ -101,7 +101,7 @@ export default function CreatQuiz() {
     return (
         <div>
             <NavigationBar />
-            <div className="mainS flex justify-center w-full text-white">
+            <div style={{ marginTop: "140px" }} className="mainS flex justify-center w-full text-white">
                 <div className="main2 bg-gray-800 p-8 w-3/4">
                     <h1 className="text-2xl font-bold mb-4">Create Your Quiz</h1>
 

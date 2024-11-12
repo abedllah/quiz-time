@@ -82,7 +82,7 @@ const QuizPage = () => {
     return (
         <div>
             <NavigationBar />
-            <div className="mainS flex justify-center w-full text-white mt-8">
+            <div style={{ marginTop: "150px" }} className="mainS flex justify-center w-full text-white mt-8">
                 <div className="p-5 w-3/4" style={{ backgroundColor: "#262626", borderRadius: "50px" }}>
                     {showScore ? (
                         <div className="text-center">

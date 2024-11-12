@@ -53,24 +53,7 @@ export default function JoinQuiz({ onClose }) {
                     </button>
                 </div>
 
-                {/* Search by Quiz Name */}
-                <div className="mb-4">
-                    <label className="block mb-1 font-semibold">Search by Quiz Name</label>
-                    <input
-                        type="text"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Enter quiz name..."
-                        className="w-full p-2 rounded border-b-2 border-gray-500 bg-gray-900 text-white focus:border-blue-500 outline-none"
-                    />
-                    <button
-                        onClick={handleSearch}
-                        className="mt-3 bg-white hover:bg-blue-600 w-full text-black py-2 rounded-full font-semibold"
-                    >
-                        Search
-                    </button>
-                    {error && <p className="text-red-500 mt-2">{error}</p>}
-                </div>
+                
 
                 {/* Display Search Results */}
                 {searchResults.length > 0 && (
@@ -107,6 +90,25 @@ export default function JoinQuiz({ onClose }) {
                     >
                         Join Quiz
                     </button>
+                </div>
+
+                {/* Search by Quiz Name */}
+                <div className="mb-4">
+                    <label className="block mb-1 font-semibold">Search by Quiz Name</label>
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="Enter quiz name..."
+                        className="w-full p-2 rounded border-b-2 border-gray-500 bg-gray-900 text-white focus:border-blue-500 outline-none"
+                    />
+                    <button
+                        onClick={handleSearch}
+                        className="mt-3 bg-white hover:bg-blue-600 w-full text-black py-2 rounded-full font-semibold"
+                    >
+                        Search
+                    </button>
+                    {error && <p className="text-red-500 mt-2">{error}</p>}
                 </div>
             </div>
         </div>

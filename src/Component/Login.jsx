@@ -23,7 +23,6 @@ export default function Login() {
     console.log(data);
 
     if (response.ok) {
-        alert('Login successful!');
         localStorage.setItem('token', data.token);
         localStorage.setItem('user_id', data.id); // Ensure user_id is being saved
         login(data.token);  // Assuming this function handles login state

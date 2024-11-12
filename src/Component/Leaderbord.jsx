@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import axios from 'axios';
 
-export default function Leaderbored() {
+export default function Leaderbord() {
 
     const [userData, setUserData] = useState([]);
     const [users, setUsers] = useState([]);
@@ -38,7 +38,7 @@ export default function Leaderbored() {
           <nav>
               <ul>
                   <li className="mb-4">
-                      <a href="#" className="flex items-center p-2 rounded">
+                      <a href="/MainPage" className="flex items-center p-2 rounded">
                           <i className="fas fa-home mr-2"></i> Home
                       </a>
                   </li>
@@ -48,7 +48,7 @@ export default function Leaderbored() {
                       </a>
                   </li>
                   <li className="mb-4">
-                      <a href="#" className="flex items-center p-2 rounded">
+                      <a href="/leaderbord" className="flex items-center p-2 rounded">
                           <i className="fas fa-trophy mr-2"></i> Leaderboard
                       </a>
                   </li>
@@ -72,25 +72,25 @@ export default function Leaderbored() {
           </ul>
       </div>
   </aside>
-  <main className="mainSection w-3/4 p-8">
+  <main className="mainSection  w-3/4 p-8">
       <header className="flex justify-between items-center mb-8">
           <div>
               <h2 className="text-3xl font-bold">
                   Welcome, {userData.length > 0 ? userData[0].username : 'User'}!
               </h2>
-          </div> {/*  */}
+          </div>
           <img 
               src={userData.length > 0 && userData[0].user_pic != null ? `http://localhost:5000/${userData[0].user_pic}` : 'avatar.jpg' }
               alt="User profile picture" 
               className="rounded-full w-12 h-12" 
           />
       </header>
-      <section className="mb-8">
+      <section className="mb-8 ">
       <div className=''>
           <h3 className="text-xl font-bold mb-4">Quiz Leaderboard</h3>
-          <ul className='leaderbord h-auto'>
+          <ul className='leaderbord'>
               {users.map((user, index) => (
-                  <li key={index} className="flex justify-between items-center mb-3">
+                  <li key={index} className="flex  justify-between items-center mb-3">
                   <div className="flex items-center">
                       <img src={user.user_pic !=null ? `http://localhost:5000/${user.user_pic}` : "avatar.jpg"} alt="Top Scorer" className="rounded-full w-8 h-8 mr-2"/>
                       <span>#{String(index + 1).padStart(2, '0')} {user.username}</span>

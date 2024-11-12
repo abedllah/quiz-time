@@ -121,7 +121,7 @@ export default function Profile() {
                                 </a>
                             </li>
                             <li className="mb-4">
-                                <a href="#" className="flex items-center p-2 rounded">
+                                <a href="/Leaderbord" className="flex items-center p-2 rounded">
                                     <i className="fas fa-trophy mr-2"></i> Leaderboard
                                 </a>
                             </li>

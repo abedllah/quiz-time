@@ -10,7 +10,7 @@ import Signup from './Component/Signup';
 import { AuthProvider } from './AuthContext';
 import PrivateRoute from './PrivateRoute';
 import Profile from './Component/Profile';
-import Leaderbored from './Component/Leaderbored';
+import Leaderbord from './Component/Leaderbord';
 
 
 export default function App(){
@@ -27,7 +27,7 @@ export default function App(){
           <Route path="/Login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/leaderbord" element={<Leaderbored />} />
+          <Route path="/leaderbord" element={<Leaderbord />} />
         </Routes>
       </BrowserRouter>
       </AuthProvider>
