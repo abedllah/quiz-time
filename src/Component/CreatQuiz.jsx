@@ -13,6 +13,7 @@ export default function CreatQuiz() {
     const [redirect, setRedirect] = useState(false);
     const [quizCode, setQuizCode] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
+    const [previewImage, setPreviewImage] = useState(null);
 
     // Add a question
     const handleAddQuestion = () => {
@@ -29,14 +30,16 @@ export default function CreatQuiz() {
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
+            setImage(file);
+    
+            // Create a preview URL for display purposes
             const reader = new FileReader();
             reader.onloadend = () => {
-                setImage(reader.result);
+                setPreviewImage(reader.result);
             };
             reader.readAsDataURL(file);
         }
     };
-
     // Handle submit quiz
     const handleSubmitQuiz = async () => {
         const user_id = localStorage.getItem('user_id');
@@ -136,8 +139,8 @@ export default function CreatQuiz() {
                                 className="quiz-picture rounded-full bg-gray-600 w-24 h-24 flex items-center justify-center cursor-pointer"
                                 onClick={() => document.getElementById('imageUpload').click()}
                             >
-                                {image ? (
-                                    <img src={image} alt="Quiz" className="w-full h-full object-cover rounded-full" />
+                                {previewImage ? (
+                                    <img src={previewImage} alt="Quiz Preview" className="w-full h-full object-cover rounded-full" />
                                 ) : (
                                     <span>Upload</span>
                                 )}

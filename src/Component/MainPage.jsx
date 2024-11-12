@@ -165,23 +165,23 @@ export default function MainPage() {
                     <p className=" mb-4">Test your knowledge with challenging questions!</p>
                     <a href="/JoinQuiz"><button style={{ backgroundColor: "#078C10" }} className=" text-white px-4 py-2 w-100">Join</button></a>
                 </div>
-                <div>
+                <div className=''>
                     <h3 className="text-xl font-bold mb-4">Quiz Leaderboard</h3>
                     <button className="bg-white text-black px-4 py-2 rounded mb-4">View All</button>
-                    <ul className='leaderbord'>
+                    <ul className='leaderbord h-auto'>
                         {users.map((user, index) => (
                             <li key={index} className="flex justify-between items-center mb-3">
                             <div className="flex items-center">
-                                <img src={`http://localhost:5000/${user.user_pic}`} alt="Top Scorer" className="rounded-full w-8 h-8 mr-2"/>
+                                <img src={user.user_pic !=null ? `http://localhost:5000/${user.user_pic}` : "avatar.jpg"} alt="Top Scorer" className="rounded-full w-8 h-8 mr-2"/>
                                 <span>#{String(index + 1).padStart(2, '0')} {user.username}</span>
                             </div>
-                            <span>{2398 - index * index *79} points</span>
+                            <span>{1536 - index * index *79} points</span>
                             </li>
                         ))}
                     </ul>
                 </div>
             </aside>
-            {console.log(users)}
+            {console.log(quizzes[0])}
         </div>
     );
 }

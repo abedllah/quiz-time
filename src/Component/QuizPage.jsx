@@ -137,7 +137,7 @@ const QuizPage = () => {
                                         return (
                                             <div key={ansIndex} className={`flex items-center mb-2 ${answerStyle}`}>
                                                 <label className="border-b border-gray-600 p-1 focus:outline-none">
-                                                    {answer.answer_text} {answer.is_correct && "(Correct)"}
+                                                    {answer.answer_text} {answer.is_correct == 0 ? "" : "wrong" && "(Correct)"}
                                                 </label>
                                             </div>
                                         );
